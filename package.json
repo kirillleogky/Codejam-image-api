@@ -7,17 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack -p",
     "watch": "webpack --watch",
-    "lint": "./node_modules/.bin/eslint src/index.js"
+    "lint": "eslint src/index.js"
   },
   "author": "Kirill Leogky",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.20.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
   },
-  "dependencies": {
-    "eslint": "^6.6.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2"
-  }
+  "dependencies": {}
 }

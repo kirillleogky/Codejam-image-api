@@ -1,1 +1,100 @@
-!function(t){var e={};function o(c){if(e[c])return e[c].exports;var n=e[c]={i:c,l:!1,exports:{}};return t[c].call(n.exports,n,n.exports,o),n.l=!0,n.exports}o.m=t,o.c=e,o.d=function(t,e,c){o.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:c})},o.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},o.t=function(t,e){if(1&e&&(t=o(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var c=Object.create(null);if(o.r(c),Object.defineProperty(c,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var n in t)o.d(c,n,function(e){return t[e]}.bind(null,n));return c},o.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return o.d(e,"a",e),e},o.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},o.p="",o(o.s=0)}([function(t,e){const o=Array.from({length:32},()=>Array.from({length:32},()=>"#128594")),c=document.getElementById("canvas");if(c.getContext){const t=c.getContext("2d");t.clearRect(0,0,c.width,c.height),o.forEach((e,o)=>{e.forEach((e,c)=>{t.fillStyle=`${e}`,t.fillRect(4*c,4*o,4,4)})})}const n=document.getElementById("bucket"),r=document.getElementById("choose_color"),a=document.getElementById("pencil");a.classList.add("active");const l=document.getElementById("curr-icon-input"),i=document.querySelector(".curr-icon");i.style.backgroundColor="#01d53c";const d=document.querySelector(".prev-icon"),s=document.querySelector(".red-icon"),u=document.querySelector(".blue-icon");function g(t){t.classList.contains("active")?t.classList.remove("active"):t.classList.add("active")}function h(t){t.classList.contains("active")?t.classList.remove("active"):t.classList.add("active")}const f=t=>Math.floor(t/4),y=(t,e)=>e[Math.floor(t/4)];let m,b;l.addEventListener("change",()=>{i.style.backgroundColor=`${l.value}`}),document.addEventListener("click",t=>{if(t.target===c){const e=t.offsetX,r=t.offsetY;let l=0,d=0;if(l=f(Math.ceil(r/100*25)),d=f(Math.ceil(e/100*25)),n.classList.contains("active")){const t=c.getContext("2d");t.clearRect(0,0,c.width,c.height),o.forEach((e,c)=>{e.forEach((e,n)=>{t.fillStyle=`${i.style.backgroundColor}`,o[c][n]=`${i.style.backgroundColor}`,t.fillRect(4*n,4*c,4,4)})}),localStorage.setItem("frame",JSON.stringify(o))}if(a.classList.contains("active")){o[l][d]=`${i.style.backgroundColor}`;const t=c.getContext("2d");t.clearRect(0,0,c.width,c.height),console.log(Math.min(e/4)+" "+Math.min(r/4)),o.forEach((e,o)=>{e.forEach((e,c)=>{t.fillStyle=`${e}`,t.fillRect(4*c,4*o,4,4)})}),localStorage.setItem("frame",JSON.stringify(o))}}if(t.target.closest("#bucket")===n&&g(n),t.target.closest("#choose_color")===r&&g(r),t.target.closest("#pencil")===a&&g(a),t.target.closest(".curr-icon")===i&&(d.style.backgroundColor=`${getComputedStyle(i).backgroundColor}`,l.click()),t.target.closest(".prev-icon")===d&&(i.style.backgroundColor=`${getComputedStyle(d).backgroundColor}`),t.target.closest(".red-icon")===s&&(i.style.backgroundColor=`${getComputedStyle(s).backgroundColor}`),t.target.closest(".blue-icon")===u&&(i.style.backgroundColor=`${getComputedStyle(u).backgroundColor}`),r.classList.contains("active")){if(t.target!==c)return void(i.style.backgroundColor=`${getComputedStyle(t.target).backgroundColor}`);const e=t.offsetX,n=t.offsetY,r=y(e,y(n,o));i.style.backgroundColor=r}}),document.addEventListener("keyup",t=>{"KeyB"===t.code&&h(n),"KeyP"===t.code&&h(a),"KeyC"===t.code&&h(r)});const v=document.querySelector(".canvas_features_block-load"),p=document.querySelector(".canvas_features_block-text"),C=document.querySelector(".canvas_features_block-bw");v.addEventListener("click",()=>{!function(t){fetch(`https://api.unsplash.com/photos/random?query=town,${t}&client_id=98016397a2a858d3d5d19887ed4ca375edb159e3436c37715cc86aed6197614d`).then(t=>t.json()).then(t=>t.urls.small).then(t=>{if(c.getContext){let e=c.getContext("2d");e.imageSmoothingEnabled=!1,e.clearRect(0,0,c.width,c.height);let o=new Image;o.src=t,o.onload=()=>{m=o.width,b=o.height,o.width===o.height&&(m=128,b=128,e.drawImage(o,0,0,128,128)),o.width<o.height&&(m=128*o.width/o.height,b=128,e.drawImage(o,(128-128*o.width/o.height)/2,0,128*o.width/o.height,128)),o.width>o.height&&(m=128,b=128*o.height/o.width,e.drawImage(o,0,(128-128*o.height/o.width)/2,128,128*o.height/o.width))}}})}(p.value)}),C.addEventListener("click",()=>{let t=c.getContext("2d"),e=t.getImageData(0,0,m,b);for(let t=0;t<e.data.length;t+=4){let o=(e.data[t]+e.data[t+1]+e.data[t+2])/3;e.data[t]=o,e.data[t+1]=o,e.data[t+2]=o}t.putImageData(e,0,0,0,0,e.width,e.height)})}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const frame4x4 = Array.from({ length: 128 }, () => Array.from({ length: 128 }, () => '#128594'));\nconst canvas = document.getElementById('canvas');\nconst ctx = canvas.getContext('2d');\n\n\nconst bucket = document.getElementById('bucket');\nconst chooseColor = document.getElementById('choose_color');\nconst pencil = document.getElementById('pencil');\npencil.classList.add('active');\n\nconst currColorInput = document.getElementById('curr-icon-input');\nconst currColor = document.querySelector('.curr-icon');\ncurrColor.style.backgroundColor = '#01d53c';\nconst prewColor = document.querySelector('.prev-icon');\nconst redColor = document.querySelector('.red-icon');\nconst blueColor = document.querySelector('.blue-icon');\n\nconst smallCanvas = document.getElementById('128x128_item');\nconst mediumCanvas = document.getElementById('256x256_item');\nconst largeCanvas = document.getElementById('512x512_item');\nlet reductionNumber = 1;\nlet reductionPixelNumber = 1;\nlet canvasSize = 512;\n\nfunction activeButtonClick(button) {\n  if (button.classList.contains('active')) {\n    button.classList.remove('active');\n    return;\n  }\n  button.classList.add('active');\n}\n\nfunction activeButtonKeyboard(element) {\n  if (element.classList.contains('active')) {\n    element.classList.remove('active');\n    return;\n  }\n  element.classList.add('active');\n}\n\nfunction drawImageOnCanvas(size, reduct, reductPixel) {\n  canvas.width = size;\n  canvas.height = size;\n  const img = new Image();\n  img.src = localStorage.getItem('savekey');\n  img.onload = () => {\n    ctx.drawImage(img, 0, 0, size, size);\n  };\n  reductionNumber = reduct;\n  reductionPixelNumber = reductPixel;\n  canvasSize = size;\n}\n\n\nconst dataURL = localStorage.getItem('savekey') || null;\nif (dataURL !== null) {\n  drawImageOnCanvas(512, 1, 4);\n} else {\n  ctx.clearRect(0, 0, canvas.width, canvas.height);\n  frame4x4.forEach((row, i) => {\n    row.forEach((column, j) => {\n      ctx.fillStyle = `${column}`;\n      ctx.fillRect(j * 4, i * 4, 4, 4);\n    });\n  });\n}\n\n\n// Handler for click on Current color circle in the \"color section\"\ncurrColorInput.addEventListener('change', () => {\n  currColor.style.backgroundColor = `${currColorInput.value}`;\n});\n\n\ndocument.addEventListener('click', (event) => {\n// Canvas bucket and pencil handlers\n  if (event.target === canvas) {\n    const coorX = event.offsetX;\n    const coorY = event.offsetY;\n\n    if (bucket.classList.contains('active')) {\n      ctx.clearRect(0, 0, canvas.width, canvas.height);\n      frame4x4.forEach((row, i) => {\n        row.forEach((column, j) => {\n          ctx.fillStyle = `${currColor.style.backgroundColor}`;\n          frame4x4[i][j] = `${currColor.style.backgroundColor}`;\n          ctx.fillRect(j * 4, i * 4, 4, 4);\n        });\n      });\n      localStorage.setItem('frame', JSON.stringify(frame4x4));\n    }\n\n    if (pencil.classList.contains('active')) {\n      const pixelCanvas = canvas.getContext('2d').getImageData(coorX / reductionNumber, coorY / reductionNumber, reductionPixelNumber, reductionPixelNumber);\n      const currRgbColor = currColor.style.backgroundColor.match(/\\b(\\d+)\\b/g).map(Number);\n\n      for (let i = 0; i < pixelCanvas.data.length; i += 4) {\n        [pixelCanvas.data[i], pixelCanvas.data[i + 1], pixelCanvas.data[i + 2]] = currRgbColor;\n      }\n      ctx.putImageData(pixelCanvas, coorX / reductionNumber, coorY / reductionNumber);\n    }\n  }\n\n  // Handlers for clicks on buttons\n  if (event.target.closest('#bucket') === bucket) {\n    activeButtonClick(bucket);\n  }\n  if (event.target.closest('#choose_color') === chooseColor) {\n    activeButtonClick(chooseColor);\n  }\n  if (event.target.closest('#pencil') === pencil) {\n    activeButtonClick(pencil);\n  }\n\n  // Handlers for clicks on circles in the \"color section\"\n  if (event.target.closest('.curr-icon') === currColor) {\n    prewColor.style.backgroundColor = `${getComputedStyle(currColor).backgroundColor}`;\n    currColorInput.click();\n  }\n  if (event.target.closest('.prev-icon') === prewColor) {\n    currColor.style.backgroundColor = `${getComputedStyle(prewColor).backgroundColor}`;\n  }\n  if (event.target.closest('.red-icon') === redColor) {\n    currColor.style.backgroundColor = `${getComputedStyle(redColor).backgroundColor}`;\n  }\n  if (event.target.closest('.blue-icon') === blueColor) {\n    currColor.style.backgroundColor = `${getComputedStyle(blueColor).backgroundColor}`;\n  }\n\n  // Canvas handlers for choose color\n  if (chooseColor.classList.contains('active')) {\n    if (event.target !== canvas) {\n      currColor.style.backgroundColor = `${getComputedStyle(event.target).backgroundColor}`;\n      return;\n    }\n    const coorX = event.offsetX / reductionNumber;\n    const coorY = event.offsetY / reductionNumber;\n\n    const canvasColor = canvas.getContext('2d').getImageData(coorX, coorY, 1, 1).data;\n    currColor.style.backgroundColor = `rgb(${canvasColor[0]},${canvasColor[1]},${canvasColor[2]})`;\n  }\n\n  // Handlers for changing the canvas size\n  if (event.target.closest('.canvas_nav_block-item') === smallCanvas) {\n    drawImageOnCanvas(128, 4, 1);\n  }\n  if (event.target.closest('.canvas_nav_block-item') === mediumCanvas) {\n    drawImageOnCanvas(256, 2, 2);\n  }\n  if (event.target.closest('.canvas_nav_block-item') === largeCanvas) {\n    drawImageOnCanvas(512, 1, 4);\n  }\n});\n\n// Keyboard event handlers\ndocument.addEventListener('keyup', (event) => {\n  if (event.code === 'KeyB') {\n    activeButtonKeyboard(bucket);\n  }\n  if (event.code === 'KeyP') {\n    activeButtonKeyboard(pencil);\n  }\n  if (event.code === 'KeyC') {\n    activeButtonKeyboard(chooseColor);\n  }\n});\n\n\nasync function getLinkToImage(searchText) {\n  const url = `https://api.unsplash.com/photos/random?query=town,${searchText}&client_id=98016397a2a858d3d5d19887ed4ca375edb159e3436c37715cc86aed6197614d`;\n  try {\n    const response = await fetch(url);\n    const image = await response.json();\n    return image.urls.small;\n  } catch (e) {\n    throw new Error(e);\n  }\n}\n\nconst loadBtn = document.querySelector('.canvas_features_block-load');\nconst txtSearch = document.querySelector('.canvas_features_block-text');\nconst bAndWButton = document.querySelector('.canvas_features_block-bw');\n\n// Handler for loading image from the server\nloadBtn.addEventListener('click', () => {\n  getLinkToImage(txtSearch.value).then((value) => {\n    if (canvas.getContext) {\n      ctx.imageSmoothingEnabled = false;\n      ctx.clearRect(0, 0, canvas.width, canvas.height);\n      const pic = new Image();\n      pic.crossOrigin = 'Anonymous';\n      pic.src = value;\n      pic.onload = () => {\n        if (pic.width === pic.height) {\n          ctx.drawImage(pic, 0, 0, canvasSize, canvasSize);\n        }\n        if (pic.width < pic.height) {\n          ctx.drawImage(pic, (canvasSize - (pic.width * canvasSize) / pic.height) / 2,\n            0, (pic.width * canvasSize) / pic.height, canvasSize);\n        }\n        if (pic.width > pic.height) {\n          ctx.drawImage(pic, 0, (canvasSize - (pic.height * canvasSize) / pic.width) / 2,\n            canvasSize, (pic.height * canvasSize) / pic.width);\n        }\n        localStorage.setItem('savekey', canvas.toDataURL());\n        localStorage.setItem('isImage', 'true');\n      };\n    }\n  });\n});\n\n// Handler for changing canvas to black and white color\nbAndWButton.addEventListener('click', () => {\n  if (localStorage.getItem('isImage') !== 'true') {\n    alert('Image First'); // eslint-disable-line no-alert\n    return;\n  }\n\n  const image = ctx.getImageData(0, 0, 512, 512);\n  const pixel = image.data;\n  for (let i = 0, n = pixel.length; i < n; i += 4) {\n    const grayscale = pixel[i] * 0.3 + pixel[i + 1] * 0.59 + pixel[i + 2] * 0.11;\n    pixel[i] = grayscale;\n    pixel[i + 1] = grayscale;\n    pixel[i + 2] = grayscale;\n  }\n  ctx.putImageData(image, 0, 0);\n  localStorage.setItem('savekey', canvas.toDataURL());\n});\n\n\n//# sourceURL=webpack:///./src/index.js?");
+
+/***/ })
+
+/******/ });
