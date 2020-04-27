@@ -2,7 +2,6 @@ const frame4x4 = Array.from({ length: 128 }, () => Array.from({ length: 128 }, (
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-
 const bucket = document.getElementById('bucket');
 const chooseColor = document.getElementById('choose_color');
 const pencil = document.getElementById('pencil');
@@ -41,19 +40,44 @@ function activeButtonKeyboard(element) {
 function drawImageOnCanvas(size, reduct, reductPixel) {
   canvas.width = size;
   canvas.height = size;
+
   const img = new Image();
-  img.src = localStorage.getItem('savekey');
+  img.crossOrigin = 'Anonymous';
+  img.src = localStorage.getItem('saveImage');
   img.onload = () => {
-    ctx.drawImage(img, 0, 0, size, size);
+    if (img.width === img.height) {
+      ctx.drawImage(img, 0, 0, size, size);
+    }
+    if (img.width < img.height) {
+      ctx.drawImage(img, (size - (img.width * size) / img.height) / 2,
+        0, (img.width * size) / img.height, size);
+    }
+    if (img.width > img.height) {
+      ctx.drawImage(img, 0, (size - (img.height * size) / img.width) / 2,
+        size, (img.height * size) / img.width);
+    }
+
+    // Сhecks if need to convert the image to b & w
+    if (document.querySelector('.canvas_features_block-bw').classList.contains('black_and_white_active')) {
+      const image = ctx.getImageData(0, 0, 512, 512);
+      const pixel = image.data;
+      for (let i = 0, n = pixel.length; i < n; i += 4) {
+        const grayscale = pixel[i] * 0.3 + pixel[i + 1] * 0.59 + pixel[i + 2] * 0.11;
+        pixel[i] = grayscale;
+        pixel[i + 1] = grayscale;
+        pixel[i + 2] = grayscale;
+      }
+      ctx.putImageData(image, 0, 0);
+    }
   };
+  canvasSize = size;
   reductionNumber = reduct;
   reductionPixelNumber = reductPixel;
-  canvasSize = size;
 }
 
 
-const dataURL = localStorage.getItem('savekey') || null;
-if (dataURL !== null) {
+const dataImage = localStorage.getItem('saveImage') || null;
+if (dataImage !== null) {
   drawImageOnCanvas(512, 1, 4);
 } else {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -187,24 +211,9 @@ loadBtn.addEventListener('click', () => {
     if (canvas.getContext) {
       ctx.imageSmoothingEnabled = false;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const pic = new Image();
-      pic.crossOrigin = 'Anonymous';
-      pic.src = value;
-      pic.onload = () => {
-        if (pic.width === pic.height) {
-          ctx.drawImage(pic, 0, 0, canvasSize, canvasSize);
-        }
-        if (pic.width < pic.height) {
-          ctx.drawImage(pic, (canvasSize - (pic.width * canvasSize) / pic.height) / 2,
-            0, (pic.width * canvasSize) / pic.height, canvasSize);
-        }
-        if (pic.width > pic.height) {
-          ctx.drawImage(pic, 0, (canvasSize - (pic.height * canvasSize) / pic.width) / 2,
-            canvasSize, (pic.height * canvasSize) / pic.width);
-        }
-        localStorage.setItem('savekey', canvas.toDataURL());
-        localStorage.setItem('isImage', 'true');
-      };
+      localStorage.setItem('saveImage', value);
+      localStorage.setItem('isImage', 'true');
+      drawImageOnCanvas(canvasSize, reductionNumber, reductionPixelNumber);
     }
   });
 });
@@ -216,14 +225,10 @@ bAndWButton.addEventListener('click', () => {
     return;
   }
 
-  const image = ctx.getImageData(0, 0, 512, 512);
-  const pixel = image.data;
-  for (let i = 0, n = pixel.length; i < n; i += 4) {
-    const grayscale = pixel[i] * 0.3 + pixel[i + 1] * 0.59 + pixel[i + 2] * 0.11;
-    pixel[i] = grayscale;
-    pixel[i + 1] = grayscale;
-    pixel[i + 2] = grayscale;
+  if (bAndWButton.classList.contains('black_and_white_active')) {
+    bAndWButton.classList.remove('black_and_white_active');
+  } else {
+    bAndWButton.classList.add('black_and_white_active');
+    drawImageOnCanvas(canvasSize, reductionNumber, reductionPixelNumber);
   }
-  ctx.putImageData(image, 0, 0);
-  localStorage.setItem('savekey', canvas.toDataURL());
 });

@@ -160,6 +160,10 @@
   font-size: 1em;
 }
 
+.black_and_white_active {
+  background-color: rgba(3, 133, 133, 1);
+}
+
 .canvas_features_block-text {
   width: 175px;
   font-size: 1em;
