@@ -227,6 +227,7 @@ bAndWButton.addEventListener('click', () => {
 
   if (bAndWButton.classList.contains('black_and_white_active')) {
     bAndWButton.classList.remove('black_and_white_active');
+    drawImageOnCanvas(canvasSize, reductionNumber, reductionPixelNumber);
   } else {
     bAndWButton.classList.add('black_and_white_active');
     drawImageOnCanvas(canvasSize, reductionNumber, reductionPixelNumber);
